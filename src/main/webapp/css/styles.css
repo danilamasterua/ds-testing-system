@@ -1,0 +1,49 @@
+header, footer{
+  display: flex;
+  color: black;
+  width: 100%;
+  text-decoration: none;
+}
+.logo{
+  display: inline-flex;
+}
+.logo img{
+  width: 25px;
+  height: 38px;
+}
+.logo div a{
+  font-size: 14pt;
+  margin-bottom: 0;
+}
+footer{
+  position: fixed;
+  bottom: 0;
+  height: 25px;
+}
+.sign-in{
+  display: flex;
+  justify-content: space-between;
+  width: 75px;
+  margin-left: auto;
+  margin-right: 5px;
+  align-items: center
+}
+.centered-form-block{
+  display: flex;
+  justify-content: center;
+  width: 250px;
+  padding: 2px;
+  box-shadow: 4px 4px 8px 1px rgba(34, 60, 80, 0.2);
+  border-radius: 5px;
+}
+
+.btn-primary{
+  background-color: #07B5DB !important;
+  border-color: #07B5DB !important;
+}
+
+.btn-primary:hover{
+  background-color: #1FC0DB !important;
+  border-color: #1FC0DB !important;
+}
+
