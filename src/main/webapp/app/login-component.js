@@ -20,8 +20,8 @@ export default {
               dataType: 'json',
               success: function (response){
                   if(response.error===true){
-                      $("#error-header").append(response.errorCode);
-                      $("#error-body").append(response.stackTrace);
+                      $("#error-header").text(response.errorCode)
+                      $("#error-body").text(response.stackTrace);
                       $("#error-block").show();
                   } else {
                       console.log(response);
@@ -35,7 +35,7 @@ export default {
             '  <div class="centered-form-block" id="login-form">\n' +
             '    <div>\n' +
             '      <h1>Авторизація</h1>\n' +
-            '      <form @submit.prevent="proceedLogin" class="mb-0">\n' +
+            '      <form @submit="proceedLogin" class="mb-0">\n' +
             '        <label for="login" class="form-label my-0">Логін або Email</label>\n' +
             '        <input id="login" v-model="login" name="login" placeholder="name.surname" class="form-control mb-1" required>\n' +
             '        <label for="password" class="form-label my-0">Пароль</label>\n' +

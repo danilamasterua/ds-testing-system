@@ -23,9 +23,6 @@ public class LoginCommand extends Command {
         return new InvalidCommand("400", "This command is not support GET method").execute(req, resp);
     }
     public String execute(HttpServletRequest req, HttpServletResponse resp, JsonObject obj) throws IOException, ServletException{
-        if(!Objects.equals(req.getMethod(), "POST")){
-            return this.execute(req, resp);
-        }
         HttpSession oldSession = req.getSession();
         oldSession.invalidate();
         HttpSession session = req.getSession();
