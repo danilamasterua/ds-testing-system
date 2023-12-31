@@ -1,5 +1,5 @@
 import {createApp} from 'vue';
-import DashboardComponent from "./dashboard-component";
+import DashboardComponent from "./dashboard-component.js";
 export default {
     data(){
       return {
@@ -10,6 +10,7 @@ export default {
     },
     methods:{
       proceedLogin(){
+          $('#error-block').hide();
           let request={
               command: this.command,
               login: this.login,
@@ -33,7 +34,7 @@ export default {
       }
     },
     template:
-            '<div  class="d-flex justify-content-center my-1">\n' +
+            '<div class="d-flex justify-content-center my-1">\n' +
             '  <div class="centered-form-block" id="login-form">\n' +
             '    <div>\n' +
             '      <h1>Авторизація</h1>\n' +

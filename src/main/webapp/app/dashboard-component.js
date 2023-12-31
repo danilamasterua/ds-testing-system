@@ -1,3 +1,20 @@
+import {createApp} from 'vue';
+import UsercabinetComponent from "./usercabinet-component.js";
+
 export default{
-    template: '<div>DASHBOARD</div>'
+    mounted(){
+        console.log("Load dashboard");
+        this.loadUserCabinet();
+    },
+    methods: {
+      loadUserCabinet(){
+          createApp(UsercabinetComponent).mount("#dashboard-content");
+      }
+    },
+    template:
+        '<div class="btn-group">' +
+        '   <button class="btn btn-light">Профіль</button>' +
+        '   <button class="btn btn-light" disabled>Тести</button> ' +
+        '</div>' +
+        '<div class="dashboard-content" id="dashboard-content"></div>'
 }

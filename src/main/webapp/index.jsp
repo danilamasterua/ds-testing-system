@@ -3,6 +3,7 @@
 <head>
     <title>DS Testing System</title>
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/dashboard.css">
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script type="importmap">
         {
@@ -19,7 +20,7 @@
 </head>
 <body>
 <jsp:include page="assets/jsparts/header.jsp"></jsp:include>
-<main class="container-fluid">
+<main>
     <div id="login-form"></div>
 </main>
 <jsp:include page="assets/jsparts/footer.jsp"></jsp:include>
