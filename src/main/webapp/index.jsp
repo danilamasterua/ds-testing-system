@@ -4,6 +4,7 @@
     <title>DS Testing System</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/usercabinet.css">
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script type="importmap">
         {
@@ -21,7 +22,7 @@
 <body>
 <jsp:include page="assets/jsparts/header.jsp"></jsp:include>
 <main>
-    <div id="login-form"></div>
+    <div class="container" id="login-form"></div>
 </main>
 <jsp:include page="assets/jsparts/footer.jsp"></jsp:include>
 </body>

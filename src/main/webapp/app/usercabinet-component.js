@@ -1,11 +1,4 @@
 export default {
-    data(){
-      return{
-          firstName:"",
-          lastName:"",
-          email:""
-      }
-    },
     mounted() {
         $.ajax({
             method: 'GET',
@@ -14,14 +7,24 @@ export default {
                 command: "getCurrentUser"
             },
             success: function (response){
-                this.firstName = response.firstName;
-                console.log(response.firstName);
-                this.lastName = response.lastName;
-                this.email = response.email;
+                let fullName = response.firstName+" "+response.lastName;
+                $("#fullName").text(fullName);
+                $("#email").text(response.email);
             }
         })
     },
     template:
         '<h1>Ваш профіль</h1>' +
-        '<h3>{{firstName}} {{lastName}}</h3>'
+        '<div class="dashboard-content-child">' +
+        '   <div class="user-card">' +
+        '       <h4 id="fullName"></h4>' +
+        '       <p><b>Email:</b><a id="email"></a></p>' +
+        '       <div class="btn-group">' +
+        '           <button class="btn btn-primary">Змінити пароль</button>' +
+        '           <button class="btn btn-danger">Вийти</button>' +
+        '       </div>' +
+        '   </div>' +
+        '   <div id="usercabinet-do">' +
+        '   </div>' +
+        '</div>'
 }
