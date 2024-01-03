@@ -5,24 +5,25 @@ import ds.dstestingsystemsakuraupdate.data.model.User;
 import ds.dstestingsystemsakuraupdate.data.service.UserService;
 import ds.dstestingsystemsakuraupdate.web.commands.Command;
 import ds.dstestingsystemsakuraupdate.web.commands.InvalidCommand;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.logging.log4j.*;
 
-import java.io.IOException;
-import java.util.Objects;
 
+/**
+ * Command for login to system
+ * @Return <code>Return user info, if login/email and password is right, or return error <b>401</b> if not right</code>
+ */
 public class LoginCommand extends Command {
     Logger logger = LogManager.getLogger(LoginCommand.class);
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+    public String execute(HttpServletRequest req, HttpServletResponse resp) {
         HttpSession oldSession = req.getSession();
         oldSession.invalidate();
         return new InvalidCommand("400", "This command is not support GET method").execute(req, resp);
     }
-    public String execute(HttpServletRequest req, HttpServletResponse resp, JsonObject obj) throws IOException, ServletException{
+    public String execute(HttpServletRequest req, HttpServletResponse resp, JsonObject obj) {
         HttpSession oldSession = req.getSession();
         oldSession.invalidate();
         HttpSession session = req.getSession();

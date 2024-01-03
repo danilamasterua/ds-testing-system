@@ -5,16 +5,17 @@ import com.google.gson.JsonObject;
 import ds.dstestingsystemsakuraupdate.data.model.User;
 import ds.dstestingsystemsakuraupdate.web.commands.Command;
 import ds.dstestingsystemsakuraupdate.web.commands.InvalidCommand;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-import java.io.IOException;
 
+/**
+ * Command what return JSON <i>currentUser:<b>User</b></i> from current session, or return JSON <code>nosession=false</code>, if session is not exist
+ */
 public class GetCurrentUserCommand extends Command {
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+    public String execute(HttpServletRequest req, HttpServletResponse resp) {
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("currentUser");
         if(user!=null) {
@@ -29,7 +30,7 @@ public class GetCurrentUserCommand extends Command {
     }
 
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse rep, JsonObject obj) throws IOException, ServletException {
+    public String execute(HttpServletRequest req, HttpServletResponse rep, JsonObject obj) {
         HttpSession oldSession = req.getSession();
         oldSession.invalidate();
         return new InvalidCommand("400", "This command is not support POST method").execute(req, rep);

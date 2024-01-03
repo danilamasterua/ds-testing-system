@@ -8,6 +8,9 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.HashMap;
 
+/**
+ * Container of commands
+ */
 public class CommandContainer {
     private static final HashMap<String, Command> commands = new HashMap<>();
     private static final Logger logger = LogManager.getLogger(CommandContainer.class);
@@ -21,6 +24,11 @@ public class CommandContainer {
         logger.info("Count commands -> "+commands.size());
     }
 
+    /**
+     * Get object of type <i>Command</i>
+     * @param command <i>String</i> name of command
+     * @return <i>Command</i> command
+     */
     public static Command get(String command){
         if(!commands.containsKey(command)||command==null){
             logger.info("command \""+command+"\" is not found");
