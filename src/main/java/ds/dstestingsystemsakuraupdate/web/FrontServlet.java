@@ -18,6 +18,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.stream.Collectors;
 
+/**
+ * Main servlet for front controller<br>
+ * for work with it, you need to declare parameter <b>command</b> in your request body
+ * @Required
+ * <i>command</i> - name of command
+ */
 @WebServlet("/do")
 public class FrontServlet extends HttpServlet {
     private final Logger logger = LogManager.getLogger(FrontServlet.class);
@@ -30,7 +36,7 @@ public class FrontServlet extends HttpServlet {
         Command c = CommandContainer.get(command);
         logger.info("Command "+c.toString()+" has been received");
         String json = c.execute(req, resp);
-        forward(json, req, resp);
+        forward(json, resp);
     }
 
     @Override
@@ -49,10 +55,10 @@ public class FrontServlet extends HttpServlet {
         Command c = CommandContainer.get(command);
         logger.info("Command "+c.toString()+" has been received");
         String json = c.execute(req, resp, jo);
-        forward(json, req, resp);
+        forward(json, resp);
     }
 
-    private void forward(String json, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void forward(String json, HttpServletResponse response) throws IOException {
         if(json!=null){
             response.setContentType("application/json; charset=utf-8");
             response.getWriter().append(json);
