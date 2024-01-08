@@ -14,16 +14,15 @@ import java.io.IOException;
 
 public class GetCurrentUserCommand extends Command {
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+    public String execute(HttpServletRequest req, HttpServletResponse resp) {
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("currentUser");
         if(user!=null) {
             System.out.println(user.getLogin());
-            return new Gson().toJson(user);
+            return new Gson().toJson(user, User.class);
         } else {
             JsonObject jo = new JsonObject();
             jo.addProperty("nosession", true);
-            System.out.println(jo.get("nosession").getAsString());
             return new Gson().toJson(jo);
         }
     }

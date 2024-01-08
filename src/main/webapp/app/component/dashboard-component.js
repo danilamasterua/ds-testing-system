@@ -1,5 +1,5 @@
 import {createApp} from 'vue';
-import UsercabinetComponent from "./usercabinet-component.js";
+import UsercabinetComponent from "./dashboard-content-components/usercabinet/usercabinet-component.js";
 
 export default{
     mounted(){

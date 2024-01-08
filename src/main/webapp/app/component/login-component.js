@@ -29,6 +29,11 @@ export default {
                   } else {
                       createApp(DashboardComponent).mount("#login-form");
                   }
+              },
+              error: function (response){
+                  $("#error-header").text(ERROR)
+                  $("#error-body").text(response);
+                  $("#error-block").show();
               }
           })
       }

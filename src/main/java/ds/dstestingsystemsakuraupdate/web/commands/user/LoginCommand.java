@@ -12,7 +12,6 @@ import jakarta.servlet.http.HttpSession;
 import org.apache.logging.log4j.*;
 
 import java.io.IOException;
-import java.util.Objects;
 
 public class LoginCommand extends Command {
     Logger logger = LogManager.getLogger(LoginCommand.class);
@@ -33,7 +32,7 @@ public class LoginCommand extends Command {
             User user = UserService.getUser(login);
             if (user != null && user.checkPassword(password)) {
                 session.setAttribute("currentUser", user);
-                return new Gson().toJson(user);
+                return "true";
             } else {
                 return new InvalidCommand("401", "Password or login/email incorrect").execute(req, resp);
             }
