@@ -1,6 +1,10 @@
 package ds.dstestingsystemsakuraupdate.data.model;
 
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import ds.dstestingsystemsakuraupdate.data.model.bean.UserAccessLevel;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -9,6 +13,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.hibernate.validator.constraints.Length;
+import org.json.JSONObject;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -42,5 +47,18 @@ public class User {
 
     public boolean checkPassword(String password){
         return this.password.equals(DigestUtils.sha256Hex(password));
+    }
+    public String toJson(){
+        JsonObject jo = new JsonObject();
+        jo.addProperty("firstName", this.firstName);
+        jo.addProperty("lastName", this.lastName);
+        jo.addProperty("email", this.email);
+        jo.addProperty("userAccessLevel", this.userAccessLevel.toString());
+        JsonArray jarray = new JsonArray();
+        this.groups.forEach(group->{
+            jarray.add(group.toJson());
+        });
+        jo.addProperty("groups", jarray.toString());
+        return new Gson().toJson(jo);
     }
 }

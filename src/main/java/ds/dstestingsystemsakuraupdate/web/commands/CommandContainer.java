@@ -1,5 +1,6 @@
 package ds.dstestingsystemsakuraupdate.web.commands;
 
+import ds.dstestingsystemsakuraupdate.web.commands.user.ExitCommand;
 import ds.dstestingsystemsakuraupdate.web.commands.user.GetCurrentUserCommand;
 import ds.dstestingsystemsakuraupdate.web.commands.user.LoginCommand;
 
@@ -19,9 +20,11 @@ public class CommandContainer {
         //Main command
         commands.put("login", new LoginCommand());
         commands.put("getCurrentUser", new GetCurrentUserCommand());
+        commands.put("exit", new ExitCommand());
 
         logger.info("Command container successfully initialized");
         logger.info("Count commands -> "+commands.size());
+        System.out.println("Command container successfully initialized\nCount commands -> "+commands.size());
     }
 
     /**

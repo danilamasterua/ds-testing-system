@@ -1,5 +1,7 @@
 package ds.dstestingsystemsakuraupdate.data.model;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,4 +25,10 @@ public class EdGroup {
         joinColumns = @JoinColumn(name = "group_id"),
         inverseJoinColumns = @JoinColumn(name = "user_id"))
     private Set<User> users = new HashSet<>();
+    public String toJson(){
+        JsonObject jo = new JsonObject();
+        jo.addProperty("id", this.id);
+        jo.addProperty("groupName", this.groupName);
+        return new Gson().toJson(jo);
+    }
 }

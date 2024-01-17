@@ -8,10 +8,15 @@ export default {
             data: {
                 command: "getCurrentUser"
             },
-            success: function (response){
-                let fullName = response.firstName+" "+response.lastName;
-                $("#fullName").text(fullName);
-                $("#email").text(response.email);
+            success: function (response) {
+                let fullName = response.firstName + " " + response.lastName;
+                $("#usercard-fullName").text(fullName);
+                $("#usercard-email").text(response.email);
+            },
+            error: function (resp) {
+                $("#error-header").text(ERROR)
+                $("#error-body").text('Unexpected error');
+                $("#error-block").show();
             }
         })
     },
@@ -23,18 +28,19 @@ export default {
     template:
         '<h1>Ваш профіль</h1>' +
         '<div class="dashboard-content-child">' +
-        '   <div v-if="loaded" class="user-card">' +
-        '       <h4 id="usercard-fullName"></h4>' +
-        '       <p><b>Email:</b><a id="usercard-email"></a></p>' +
-        '       <div class="btn-group">' +
-        '           <button class="btn btn-primary">Змінити пароль</button>' +
-        '           <button class="btn btn-danger">Вийти</button>' +
+        '   <div class="user-card">' +
+        '       <div style="display: inline-flex; width: 100%;">' +
+            '       <h4 id="usercard-fullName"></h4>' +
+            '       <div style="display: flex; justify-content: space-between; margin-left: auto; align-items: center">' +
+            '           <div class="btn-group">' +
+            '               <button class="btn btn-primary" @click="openChangePasswordForm()">Змінити пароль</button>' +
+            '               <a href="exit" class="btn btn-danger">Вийти</a>' +
+            '           </div>' +
+            '       </div>' +
         '       </div>' +
+        '       <p><b>Email:</b><a style="word-wrap:anywhere" id="usercard-email"></a></p>' +
         '   </div>' +
-        '   <div v-else>' +
-        '       <div class="spinner-grow text-dark" role="status"></div>' +
-        '   </div>' +
-        '   <div id="usercabinet-do">' +
+        '   <div class="dashboard-action-block" id="usercabinet-do">' +
         '   </div>' +
         '</div>'
 }

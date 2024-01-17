@@ -4,7 +4,7 @@
         <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
         <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/ds_testing_feature</property>
         <property name="hibernate.connection.username">root</property>
-        <property name="hibernate.connection.password">RootPassword2023</property>
+        <property name="hibernate.connection.password">root</property>
 
         <!-- JDBC connection pool settings -->
         <property name="hibernate.c3p0.min_size">5</property>
@@ -21,5 +21,6 @@
 
         <!-- Mention annotated class -->
         <mapping class="ds.dstestingsystemsakuraupdate.data.model.User"/>
+        <mapping class="ds.dstestingsystemsakuraupdate.data.model.EdGroup"/>
     </session-factory>
 </hibernate-configuration>

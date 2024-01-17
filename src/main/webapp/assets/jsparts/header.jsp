@@ -6,7 +6,6 @@
         </div>
     </div>
     <div class="sign-in" id="user-header">
-        <p>${currentUser.login}</p>
     </div>
 </header>
 <hr class="m-0">

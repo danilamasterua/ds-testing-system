@@ -2,9 +2,7 @@
     display: block;
     margin: 2px;
     padding: 4px;
-    width: 250px;
     border-radius: 5px;
     border: 1px solid lightgrey;
-    align-items: center;
     height: fit-content;
 }

@@ -1,0 +1,15 @@
+###
+GET http://localhost:8080/ds_testing_system_sakura_update_war_exploded/do?command=getCurrentUser
+
+###
+POST http://localhost:8080/ds_testing_system_sakura_update_war_exploded/do
+Content-Type: application/json
+
+{"command": "login", "login": "admin", "pass": "AdminPassword2023"}
+
+###
+POST http://localhost:8080/ds_testing_system_sakura_update_war_exploded/do
+Content-Type: application/json
+
+{"command": "exit"}
+

@@ -20,7 +20,7 @@ public class GetCurrentUserCommand extends Command {
         User user = (User) session.getAttribute("currentUser");
         if(user!=null) {
             System.out.println(user.getLogin());
-            return new Gson().toJson(user, User.class);
+            return user.toJson();
         } else {
             JsonObject jo = new JsonObject();
             jo.addProperty("nosession", true);
