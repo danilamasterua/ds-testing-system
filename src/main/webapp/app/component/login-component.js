@@ -28,6 +28,8 @@ export default {
                       $("#error-header").text(response.errorCode)
                       $("#error-body").text(response.stackTrace);
                       $("#error-block").show();
+                      $('#sign-in-btn').prop('disabled', false);
+                      $('#login-load-btn').hide();
                   } else {
                       createApp(DashboardComponent).mount("#login-form");
                   }

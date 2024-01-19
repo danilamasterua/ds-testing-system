@@ -1,4 +1,4 @@
-package ds.dstestingsystemsakuraupdate.web.filters;
+package ds.testingsystem.web.filters;
 
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;

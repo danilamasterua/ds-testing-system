@@ -1,10 +1,10 @@
-package ds.dstestingsystemsakuraupdate.web;
+package ds.testingsystem.web;
 
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import ds.dstestingsystemsakuraupdate.web.commands.Command;
-import ds.dstestingsystemsakuraupdate.web.commands.CommandContainer;
+import ds.testingsystem.web.commands.Command;
+import ds.testingsystem.web.commands.CommandContainer;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServlet;

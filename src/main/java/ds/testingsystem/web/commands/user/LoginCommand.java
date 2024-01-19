@@ -1,10 +1,10 @@
-package ds.dstestingsystemsakuraupdate.web.commands.user;
+package ds.testingsystem.web.commands.user;
 
 import com.google.gson.*;
-import ds.dstestingsystemsakuraupdate.data.model.User;
-import ds.dstestingsystemsakuraupdate.data.service.UserService;
-import ds.dstestingsystemsakuraupdate.web.commands.Command;
-import ds.dstestingsystemsakuraupdate.web.commands.InvalidCommand;
+import ds.testingsystem.data.model.User;
+import ds.testingsystem.data.service.UserService;
+import ds.testingsystem.web.commands.Command;
+import ds.testingsystem.web.commands.InvalidCommand;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -15,7 +15,7 @@ import java.io.IOException;
 
 /**
  * Command for login to system
- * @Return <code>Return user info, if login/email and password is right, or return error <b>401</b> if not right</code>
+ * @return <code>Return <i>true</i>, if login/email and password is right, or return error <b>401</b> if not right</code>
  */
 public class LoginCommand extends Command {
     Logger logger = LogManager.getLogger(LoginCommand.class);

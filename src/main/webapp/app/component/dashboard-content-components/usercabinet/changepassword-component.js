@@ -18,10 +18,11 @@ export default {
             let validFormat = this.checkNewPasswordValidFormat();
             let same = this.checkPasswordsSame();
 
-            $('#pwd-chng-error-block').show();
+            $('#pwd-chng-error-block').hide();
             if(validFormat && same){
                 $('#pwd-chng-error-message').text("Формати правильні")
             } else {
+                $('#pwd-chng-error-block').show();
                 let message = "";
                 if (!validFormat) {
                     message += "</br>Неправильний формат паролю"

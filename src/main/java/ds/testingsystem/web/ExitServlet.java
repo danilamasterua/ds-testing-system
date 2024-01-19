@@ -1,6 +1,6 @@
-package ds.dstestingsystemsakuraupdate.web;
+package ds.testingsystem.web;
 
-import ds.dstestingsystemsakuraupdate.web.commands.CommandContainer;
+import ds.testingsystem.web.commands.CommandContainer;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;

@@ -1,11 +1,10 @@
-package ds.dstestingsystemsakuraupdate.data.model;
+package ds.testingsystem.data.model;
 
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import ds.dstestingsystemsakuraupdate.data.model.bean.UserAccessLevel;
+import ds.testingsystem.data.model.bean.UserAccessLevel;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.Getter;
@@ -13,7 +12,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.hibernate.validator.constraints.Length;
-import org.json.JSONObject;
 
 import java.util.HashSet;
 import java.util.Set;

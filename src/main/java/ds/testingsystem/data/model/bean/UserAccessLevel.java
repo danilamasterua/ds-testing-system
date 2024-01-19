@@ -1,4 +1,4 @@
-package ds.dstestingsystemsakuraupdate.data.model.bean;
+package ds.testingsystem.data.model.bean;
 
 /**
  * Enumeration for definition user access level

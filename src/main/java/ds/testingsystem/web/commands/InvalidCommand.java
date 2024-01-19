@@ -1,4 +1,4 @@
-package ds.dstestingsystemsakuraupdate.web.commands;
+package ds.testingsystem.web.commands;
 
 
 import com.google.gson.Gson;

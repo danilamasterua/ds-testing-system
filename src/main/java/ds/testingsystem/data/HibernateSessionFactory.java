@@ -1,4 +1,4 @@
-package ds.dstestingsystemsakuraupdate.data;
+package ds.testingsystem.data;
 
 
 import lombok.Getter;

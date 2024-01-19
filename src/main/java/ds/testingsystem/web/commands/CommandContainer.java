@@ -1,8 +1,8 @@
-package ds.dstestingsystemsakuraupdate.web.commands;
+package ds.testingsystem.web.commands;
 
-import ds.dstestingsystemsakuraupdate.web.commands.user.ExitCommand;
-import ds.dstestingsystemsakuraupdate.web.commands.user.GetCurrentUserCommand;
-import ds.dstestingsystemsakuraupdate.web.commands.user.LoginCommand;
+import ds.testingsystem.web.commands.user.ExitCommand;
+import ds.testingsystem.web.commands.user.GetCurrentUserCommand;
+import ds.testingsystem.web.commands.user.LoginCommand;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

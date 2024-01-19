@@ -1,4 +1,4 @@
-package ds.dstestingsystemsakuraupdate.data.model;
+package ds.testingsystem.data.model;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
