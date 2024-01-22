@@ -5,6 +5,7 @@ import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,7 +15,7 @@ import org.hibernate.Transaction;
 
 import java.util.List;
 
-public class Repository<T, I> {
+public abstract class Repository<T, I> {
     @Getter
     final Class<T> clazz;
     @Getter

@@ -6,31 +6,32 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Length;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table
 @Getter
 @Setter
 @NoArgsConstructor
-public class EdGroup {
+public class Test {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String groupName;
+    private String name;
+    @Length(max = 5000)
+    private String description;
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private User owner;
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "user_group",
-        joinColumns = @JoinColumn(name = "group_id"),
-        inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private Set<User> users = new HashSet<>();
+    @OneToMany
+    private Set<TestModule> modules = new HashSet<>();
+
     public String toJson(){
         JsonObject jo = new JsonObject();
         jo.addProperty("id", this.id);
-        jo.addProperty("groupName", this.groupName);
+        jo.addProperty("name", this.name);
+        jo.addProperty("description", this.description);
         jo.addProperty("owner_id", this.owner.getId());
         return new Gson().toJson(jo);
     }

@@ -2,9 +2,8 @@ package ds.testingsystem.data.model;
 
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import ds.testingsystem.data.model.bean.UserAccessLevel;
+import ds.testingsystem.data.model.bean.enums.UserAccessLevel;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.Getter;
@@ -52,11 +51,6 @@ public class User {
         jo.addProperty("lastName", this.lastName);
         jo.addProperty("email", this.email);
         jo.addProperty("userAccessLevel", this.userAccessLevel.toString());
-        JsonArray jarray = new JsonArray();
-        this.groups.forEach(group->{
-            jarray.add(group.toJson());
-        });
-        jo.addProperty("groups", jarray.toString());
         return new Gson().toJson(jo);
     }
 }

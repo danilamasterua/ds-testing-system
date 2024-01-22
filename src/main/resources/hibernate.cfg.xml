@@ -4,7 +4,7 @@
         <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
         <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/ds_testing_feature</property>
         <property name="hibernate.connection.username">root</property>
-        <property name="hibernate.connection.password">RootPassword2023</property>
+        <property name="hibernate.connection.password">root</property>
 
         <!-- JDBC connection pool settings -->
         <property name="hibernate.c3p0.min_size">5</property>
@@ -20,7 +20,16 @@
         <property name="hibernate.hbm2ddl.auto">update</property>
 
         <!-- Mention annotated class -->
+        <!--Main classes-->
         <mapping class="ds.testingsystem.data.model.User"/>
         <mapping class="ds.testingsystem.data.model.EdGroup"/>
+        <mapping class="ds.testingsystem.data.model.Test"/>
+        <mapping class="ds.testingsystem.data.model.TestModule"/>
+        <mapping class="ds.testingsystem.data.model.Question"/>
+        <mapping class="ds.testingsystem.data.model.AnswerVariant"/>
+        <!--Bean classes-->
+        <mapping class="ds.testingsystem.data.model.bean.UserQuestionPoints"/>
+        <mapping class="ds.testingsystem.data.model.bean.UserAnswer"/>
+        <mapping class="ds.testingsystem.data.model.bean.UserTestPoints"/>
     </session-factory>
 </hibernate-configuration>
