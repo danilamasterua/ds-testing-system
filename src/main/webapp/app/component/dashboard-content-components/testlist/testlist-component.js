@@ -6,11 +6,31 @@ export default {
         }
     },
     mounted(){
-        this.loaded = true;
-        let test = {
-            name: "Тест"
-        }
-        this.tests.push(test);
+        this.getTests();
+    },
+    methods:{
+      getTests(){
+          let tests = [];
+          $.ajax({
+              url:"do",
+              method: 'get',
+              data: {
+                  command: 'getAvailableTestList'
+              },
+              success: function (response) {
+                  console.log(response);
+                  for(let test in response){
+                      let data = {
+                          id: test.id,
+                          name: test.name
+                      };
+                      tests.push(data);
+                  }
+              }
+          })
+          this.tests = tests;
+          this.loaded = true;
+      }
     },
     template:
         '<h1>Тести</h1>' +

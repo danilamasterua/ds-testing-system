@@ -1,5 +1,6 @@
 package ds.testingsystem.web.commands;
 
+import ds.testingsystem.web.commands.test.GetAvailableTestsCommand;
 import ds.testingsystem.web.commands.user.ExitCommand;
 import ds.testingsystem.web.commands.user.GetCurrentUserCommand;
 import ds.testingsystem.web.commands.user.LoginCommand;
@@ -21,6 +22,7 @@ public class CommandContainer {
         commands.put("login", new LoginCommand());
         commands.put("getCurrentUser", new GetCurrentUserCommand());
         commands.put("exit", new ExitCommand());
+        commands.put("getAvailableTestList", new GetAvailableTestsCommand());
 
         logger.info("Command container successfully initialized");
         logger.info("Count commands -> "+commands.size());

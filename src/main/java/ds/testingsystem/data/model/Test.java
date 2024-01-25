@@ -20,6 +20,7 @@ public class Test {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    private int minutesToPass;
     @Length(max = 5000)
     private String description;
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

@@ -2,6 +2,7 @@ package ds.testingsystem.data.model;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import ds.testingsystem.data.model.bean.TestGroupAccess;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,6 +28,8 @@ public class EdGroup {
         joinColumns = @JoinColumn(name = "group_id"),
         inverseJoinColumns = @JoinColumn(name = "user_id"))
     private Set<User> users = new HashSet<>();
+    @OneToMany
+    private Set<TestGroupAccess> accessedTests = new HashSet<>();
     public String toJson(){
         JsonObject jo = new JsonObject();
         jo.addProperty("id", this.id);

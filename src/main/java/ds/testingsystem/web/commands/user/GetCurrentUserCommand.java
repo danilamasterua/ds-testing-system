@@ -19,7 +19,6 @@ public class GetCurrentUserCommand extends Command {
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("currentUser");
         if(user!=null) {
-            System.out.println(user.getLogin());
             return user.toJson();
         } else {
             JsonObject jo = new JsonObject();
