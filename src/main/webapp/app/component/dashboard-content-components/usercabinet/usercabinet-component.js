@@ -14,7 +14,7 @@ export default {
                 $("#usercard-email").text(response.email);
             },
             error: function (resp) {
-                $("#error-header").text(ERROR)
+                $("#error-header").text('ERROR');
                 $("#error-body").text('Unexpected error');
                 $("#error-block").show();
             }
@@ -26,7 +26,7 @@ export default {
       }
     },
     template:
-        '<h1>Ваш профіль</h1>' +
+        '<h2>Ваш профіль</h2>' +
         '<div class="dashboard-content-child">' +
         '   <div class="user-card">' +
         '       <div style="display: inline-flex; width: 100%;">' +

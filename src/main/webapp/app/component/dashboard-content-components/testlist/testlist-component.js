@@ -1,61 +1,60 @@
+import {createApp} from 'vue';
+import availabletestsComponent from "./availabletests-component.js";
+import ownedtestsComponent from "./ownedtests-component.js";
 export default {
     data() {
         return {
-            tests: [],
-            loaded: false,
+            uac: false,
+            app: undefined,
         }
     },
     mounted(){
+        this.setUAC();
         this.getTests();
     },
     methods:{
-      getTests(){
-          let tests = [];
-          $.ajax({
-              url:"do",
-              method: 'get',
-              data: {
-                  command: 'getAvailableTestList'
-              },
-              success: function (response) {
-                  console.log(response);
-                  for(let test in response){
-                      let data = {
-                          id: test.id,
-                          name: test.name
-                      };
-                      tests.push(data);
-                  }
+        async setUAC(){
+            let uac = false;
+            await $.ajax({
+                method: 'GET',
+                url: "do",
+                data: {
+                    command: "getCurrentUser"
+                },
+                success: function (response) {
+                    if(response.userAccessLevel==='TEACHER'||response.userAccessLevel==='ADMIN'){
+                        uac=true;
+                    }
+                },
+                error: function (resp) {
+                    $("#error-header").text('ERROR');
+                    $("#error-body").text('Unexpected error');
+                    $("#error-block").show();
+                }
+            })
+            this.uac = uac;
+        },
+        getTests(){
+              if(this.app!==undefined){
+                  this.app.unmount();
               }
-          })
-          this.tests = tests;
-          this.loaded = true;
-      }
+              this.app = createApp(availabletestsComponent);
+              this.app.mount('#testlist-do');
+        },
+        getMyTests(){
+            this.app.unmount();
+            this.app = createApp(ownedtestsComponent);
+            this.app.mount('#testlist-do');
+        }
     },
     template:
-        '<h1>Тести</h1>' +
-        '<div class="dashboard-content-child">' +
-        '   <div v-if="loaded">' +
-        '       <div v-if="tests.length!=0">' +
-        '           <table class="table table-sm">' +
-        '           <caption>Всього тестів - {{tests.length}}</caption>' +
-        '           <tr v-for="test in tests">' +
-        '               <td class="col-10"><h4>{{test.name}}</h4></td>' +
-        '               <td class="col-2 justify-content-center">' +
-        '                   <a class="btn btn-light"><i class="bi bi-box-arrow-in-right"></i> Відкрити</a>' +
-        '               </td>' +
-        '           </tr>' +
-        '           </table>' +
-        '       </div>' +
-        '       <div v-else>' +
-        '           <h2>Доступних тестів не знайдено</h2>' +
-        '       </div>' +
+        '<h2>Тести</h2>' +
+        '<div class="d-flex justify-content-center">' +
+        '   <div v-if="uac" class="btn-group my-1">' +
+        '       <button class="btn btn-light" @click="getTests()">Доступні тести</button>' +
+        '       <button class="btn btn-light" @click="getMyTests()">Мої тести</button>' +
         '   </div>' +
-        '   <div v-else>' +
-        '       <div class="d-flex align-items-center">' +
-        '           <strong role="status">Loading...</strong>' +
-        '           <div class="spinner-border ms-auto" aria-hidden="true"></div>' +
-        '       </div>' +
-        '   </div>' +
+        '</div>' +
+        '<div id="testlist-do" class="dashboard-content-child">' +
         '</div>'
 }

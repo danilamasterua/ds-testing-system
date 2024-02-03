@@ -16,12 +16,12 @@ import java.util.List;
 
 public class TestRepository extends Repository<Test, Long> {
     public TestRepository(Class<Test> clazz){super(clazz);}
-    public List<Test> getByOwner(User owner){
+    public List<Test> getTestListByOwner(User owner){
         try (Session session = getSessionFactory().openSession()){
             CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
             CriteriaQuery<Test> cq = criteriaBuilder.createQuery(getClazz());
             Root<Test> root = cq.from(getClazz());
-            Predicate criteria = criteriaBuilder.equal(root.get("owner_id"), owner.getId());
+            Predicate criteria = criteriaBuilder.equal(root.get("owner"), owner);
             cq.select(root).where(criteria);
             Query<Test> query = session.createQuery(cq);
             return query.getResultList();
