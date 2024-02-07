@@ -25,7 +25,7 @@ public class Test {
     private String description;
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private User owner;
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private Set<TestModule> modules = new HashSet<>();
 
     public String toJson(){

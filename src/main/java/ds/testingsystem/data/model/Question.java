@@ -22,7 +22,7 @@ public class Question {
     @Length(max = 500)
     private String description;
     private String imgUrl;
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private Set<AnswerVariant> answerVariants = new HashSet<>();
 
     public String toJson(){

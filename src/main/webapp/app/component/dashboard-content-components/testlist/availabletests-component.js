@@ -6,7 +6,7 @@ export default {
       }
     },
     mounted(){
-        this.getAvailableTests().then(r => this.tests = r);
+        this.getAvailableTests().then(result=>this.tests=result);
     },
     methods:{
       async getAvailableTests(){
@@ -52,8 +52,8 @@ export default {
         '   </div>' +
         '   <div v-else>' +
         '       <div class="d-flex align-items-center">' +
-        '           <div class="spinner-border ms-auto" aria-hidden="true"></div>' +
         '           <strong role="status">Завантаження...</strong>' +
+        '           <div class="spinner-border ms-auto" aria-hidden="true"></div>' +
         '       </div>' +
         '   </div>'
 }

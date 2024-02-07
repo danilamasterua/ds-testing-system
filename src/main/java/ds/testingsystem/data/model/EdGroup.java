@@ -28,7 +28,7 @@ public class EdGroup {
         joinColumns = @JoinColumn(name = "group_id"),
         inverseJoinColumns = @JoinColumn(name = "user_id"))
     private Set<User> users = new HashSet<>();
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private Set<TestGroupAccess> accessedTests = new HashSet<>();
     public String toJson(){
         JsonObject jo = new JsonObject();
