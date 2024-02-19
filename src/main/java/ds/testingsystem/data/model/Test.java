@@ -36,4 +36,13 @@ public class Test {
         jo.addProperty("owner_id", this.owner.getId());
         return new Gson().toJson(jo);
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("\"id\":").append(this.id).
+                append("\"name\":").append(this.name).
+                append("\"description\":").append(this.description);
+        return sb.toString();
+    }
 }

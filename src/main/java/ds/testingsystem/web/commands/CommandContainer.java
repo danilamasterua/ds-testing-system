@@ -1,9 +1,6 @@
 package ds.testingsystem.web.commands;
 
-import ds.testingsystem.web.commands.test.GetAvailableTestsCommand;
-import ds.testingsystem.web.commands.test.GetOwnedTestListCommand;
-import ds.testingsystem.web.commands.test.GetTestPageStatusCommand;
-import ds.testingsystem.web.commands.test.LoadCreationTestPageCommand;
+import ds.testingsystem.web.commands.test.*;
 import ds.testingsystem.web.commands.user.ExitCommand;
 import ds.testingsystem.web.commands.user.GetCurrentUserCommand;
 import ds.testingsystem.web.commands.user.LoginCommand;
@@ -29,6 +26,7 @@ public class CommandContainer {
         commands.put("getOwnedTestList", new GetOwnedTestListCommand());
         commands.put("creationTestPage", new LoadCreationTestPageCommand());
         commands.put("getTestPageStatus", new GetTestPageStatusCommand());
+        commands.put("saveOrUpdateTest", new SaveOrUpdateCommand());
 
         logger.info("Command container successfully initialized");
         logger.info("Count commands -> "+commands.size());

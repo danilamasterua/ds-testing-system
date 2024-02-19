@@ -2,7 +2,7 @@
     <div class="logo">
         <img src="${pageContext.request.contextPath}/assets/img/ds_logo_dark.png" alt="logo">
         <div class="m-0">
-            <a><i><b>TESTING SYSTEM</b></i></a>
+            <a href="${pageContext.request.contextPath}/index.jsp"><i><b>TESTING SYSTEM</b></i></a>
         </div>
     </div>
     <div class="sign-in" id="user-header">
