@@ -6,7 +6,7 @@ export default {
         }
     },
     mounted(){
-        this.getOwnedTests().then(r => this.tests = r);
+        this.getOwnedTests();
     },
     methods:{
         async getOwnedTests(){
@@ -17,19 +17,25 @@ export default {
                 data: {
                     command: 'getOwnedTestList'
                 },
+                dataType: 'json',
                 success: function (response) {
-                    console.log(response);
-                    for(let test in response){
-                        let data = {
-                            id: test.id,
-                            name: test.name
-                        };
-                        tests.push(data);
+                    if(!response.error) {
+                        $.each(response, function (index, el) {
+                            let tEl = {
+                                id: el.id,
+                                name: el.name
+                            };
+                            tests.push(tEl);
+                        })
+                    } else {
+                        $("#error-header").text(response.errorCode)
+                        $("#error-body").text(response.stackTrace);
+                        $("#error-block").show();
                     }
                 }
             })
             this.loaded = true;
-            return tests;
+            this.tests = tests;
         }
     },
     template:
@@ -44,7 +50,7 @@ export default {
         '           <table class="table table-sm">' +
         '           <caption>Всього тестів - {{tests.length}}</caption>' +
         '           <tr v-for="test in tests">' +
-        '               <td class="col-11"><h4>{{test.name}}</h4></td>' +
+        '               <td class="col-11"><i>{{test.name}}</i></td>' +
         '               <td class="col-1">' +
         '                   <a :href="`do?command=loadTest&testId=`+test.id" class="btn btn-light"><i class="bi bi-box-arrow-in-right"></i> Відкрити</a>' +
         '               </td>' +

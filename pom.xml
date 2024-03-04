@@ -5,9 +5,9 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>ds</groupId>
-  <artifactId>ds-testing-system-sakura-update</artifactId>
-  <version>1.0-SNAPSHOT</version>
-  <name>ds-testing-system-sakura-update</name>
+  <artifactId>ds-testing-system</artifactId>
+  <version>0.1.0-SAKURA</version>
+  <name>ds-testing-system</name>
   <packaging>war</packaging>
 
   <properties>

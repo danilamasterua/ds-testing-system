@@ -23,7 +23,7 @@ public class Question {
     @Length(max = 500)
     private String description;
     private String imgUrl;
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(cascade = {CascadeType.ALL, CascadeType.REMOVE}, fetch = FetchType.EAGER, orphanRemoval = true)
     private Set<AnswerVariant> answerVariants = new HashSet<>();
     @Enumerated(EnumType.STRING)
     private QuestionType questionType;
@@ -35,5 +35,17 @@ public class Question {
         jsonObject.addProperty("imgUrl", this.imgUrl);
         jsonObject.addProperty("qType", this.questionType.name());
         return new Gson().toJson(jsonObject);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("\"id\":").append(this.id).
+                append(" \"description\":").append(this.description).
+                append("\nAnswer variants:[");
+        for(var variant:answerVariants){
+            sb.append("\n{{{").append(variant).append("}}}");
+        }
+        return sb.toString();
     }
 }

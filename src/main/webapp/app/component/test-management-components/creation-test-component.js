@@ -10,12 +10,9 @@ export default {
         modules: {
             handler(newArray, oldArray){
                 let str =
-                    '<div class="spinner-grow" role="status">\n' +
-                    '  <span class="visually-hidden">Loading...</span>\n' +
-                    '</div>'
+                    '<p>У вас є незбережені зміни</p>'
                 $('#user-header').html(str);
-                this.saveOrUpdateTest();
-                $('#user-header').html('<p>Збережено</p>');
+
             },
             deep: true
         }
@@ -57,6 +54,11 @@ export default {
             this.modules[mIndex].questions[qIndex].vars.splice(aIndex, 1);
         },
         saveOrUpdateTest(){
+            let header = $('#user-header');
+            header.html(
+                '<div class="spinner-grow" role="status">\n' +
+                '  <span class="visually-hidden">Loading...</span>\n' +
+                '</div>');
             let data = {
                 command: "saveOrUpdateTest",
                 name: this.testName,
@@ -71,6 +73,7 @@ export default {
                     console.log(response);
                 }
             })
+            header.html('<p>Збережено</p>');
         }
     },
     template:
@@ -122,7 +125,10 @@ export default {
         '       <button @click="addQuestion(index)" class="btn btn-light my-2">Додати запитання</button>' +
         '   </div>' +
         '   <div class="d-flex justify-content-center my-2">' +
-        '       <button class="btn btn-light" @click="addTestModule()">Додати модуль</button>' +
+        '       <div class="btn-group">' +
+        '           <button class="btn btn-light" @click="addTestModule()">Додати модуль</button>' +
+        '           <button class="btn btn-light" @click="saveOrUpdateTest()">Зберегти тест</button>' +
+        '       </div>' +
         '   </div>' +
         '</div>'
 }

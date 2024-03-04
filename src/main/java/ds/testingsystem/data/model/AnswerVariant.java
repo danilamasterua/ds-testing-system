@@ -23,4 +23,11 @@ public class AnswerVariant {
     public String toJson(){
         return new Gson().toJson(this);
     }
+
+    @Override
+    public String toString() {
+        return "\"id\":" + this.id +
+                "\"description\":" + this.description +
+                "\"isRight\":" + this.isRight;
+    }
 }

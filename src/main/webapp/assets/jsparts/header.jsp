@@ -8,7 +8,6 @@
     <div class="sign-in" id="user-header">
     </div>
 </header>
-<hr class="m-0">
 <div id="error-block" class="alert alert-danger" style="display: none">
     <h5 id="error-header"></h5>
     <hr>

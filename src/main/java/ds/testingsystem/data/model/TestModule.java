@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Cascade;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -20,7 +21,7 @@ public class TestModule {
     private Long id;
     private String name;
     private int countOfQuestion;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = {CascadeType.ALL,  CascadeType.REMOVE}, fetch = FetchType.EAGER, orphanRemoval = true)
     private Set<Question> questions = new HashSet<>();
 
     public String toJson(){
@@ -36,7 +37,11 @@ public class TestModule {
         StringBuilder sb = new StringBuilder();
         sb.append("\"id\":").append(this.id).
                 append("\"name\":").append(this.name).
-                append("\"Count of questions\":").append(this.questions.size()); //TODO For future updates - countOfQuestions in TestModule is count of questions what selected for test passing
-        return sb.toString();
+                append("\"Count of questions\":").append(this.questions.size()) //TODO For future updates - countOfQuestions in TestModule is count of questions what selected for test passing
+                .append("\nQuestions:[");
+        for(var question:questions){
+            sb.append("\n{{").append(question).append("}}");
+        }
+        return sb.append("\n]").toString();
     }
 }

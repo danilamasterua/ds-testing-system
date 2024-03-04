@@ -27,6 +27,8 @@ public class CommandContainer {
         commands.put("creationTestPage", new LoadCreationTestPageCommand());
         commands.put("getTestPageStatus", new GetTestPageStatusCommand());
         commands.put("saveOrUpdateTest", new SaveOrUpdateCommand());
+        commands.put("loadTest", new LoadDashboardTestCommand());
+        commands.put("getCurrentTestMeta", new GetCurrentTestMetaCommand());
 
         logger.info("Command container successfully initialized");
         logger.info("Count commands -> "+commands.size());

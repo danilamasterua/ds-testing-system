@@ -9,6 +9,7 @@ import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -23,9 +24,9 @@ public class Test {
     private int minutesToPass;
     @Length(max = 5000)
     private String description;
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     private User owner;
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(cascade = {CascadeType.ALL, CascadeType.REMOVE}, fetch = FetchType.EAGER, orphanRemoval = true)
     private Set<TestModule> modules = new HashSet<>();
 
     public String toJson(){
@@ -40,9 +41,24 @@ public class Test {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("\"id\":").append(this.id).
+        sb.append("\n\"id\":").append(this.id).
                 append("\"name\":").append(this.name).
-                append("\"description\":").append(this.description);
-        return sb.toString();
+                append("\"description\":").append(this.description).
+                append("\nModules:[");
+        for(var module:modules){
+            sb.append("\n{").append(module).append("}");
+        }
+        return sb.append("\n]").toString();
+    }
+
+    public void updateModules(List<TestModule> modules) {
+        int index = 0;
+        if(!this.modules.isEmpty()){
+            for(var module:this.modules){
+                modules.get(index).setId(module.getId());
+                index++;
+            }
+        }
+        this.modules = new HashSet<>(modules);
     }
 }

@@ -1,6 +1,7 @@
 package ds.testingsystem.web.commands.test;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import ds.testingsystem.data.model.Test;
 import ds.testingsystem.data.model.User;
@@ -26,7 +27,14 @@ public class GetOwnedTestListCommand extends Command {
             HttpSession session = req.getSession(false);
             User currentUser = (User) session.getAttribute("currentUser");
             List<Test> testList = repos.getTestListByOwner(currentUser);
-            return new Gson().toJson(testList);
+            JsonArray jsonArray = new JsonArray();
+            testList.forEach(test -> {
+                JsonObject jsonObject = new JsonObject();
+                jsonObject.addProperty("id", test.getId());
+                jsonObject.addProperty("name", test.getName());
+                jsonArray.add(jsonObject);
+            });
+            return new Gson().toJson(jsonArray);
         } catch (Exception e){
             logger.error(e.getMessage());
             return new InvalidCommand("505", e.getMessage()).execute(req, resp);

@@ -27,7 +27,7 @@ public abstract class Repository<T, I> {
     }
 
     public List<T> getAll(){
-        try (Session session = sessionFactory.openSession()){
+        try (Session session = sessionFactory.getCurrentSession()){
             CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
             CriteriaQuery<T> cq = criteriaBuilder.createQuery(clazz);
             Root<T> rootEntry = cq.from(clazz);
@@ -40,15 +40,18 @@ public abstract class Repository<T, I> {
         }
     }
     public T getById(I id){
-        try (Session session = sessionFactory.openSession()){
-            return session.get(clazz, id);
+        try (Session session = sessionFactory.getCurrentSession()){
+            Transaction transaction = session.beginTransaction();
+            T obj = session.get(clazz, id);
+            transaction.commit();
+            return obj;
         } catch (Exception e){
             logger.error(e.getMessage());
             throw new RuntimeException(e.getMessage());
         }
     }
     public T add(T obj){
-        try (Session session = sessionFactory.openSession()){
+        try (Session session = sessionFactory.getCurrentSession()){
             Transaction transaction = session.beginTransaction();
             session.persist(obj);
             transaction.commit();
@@ -59,7 +62,7 @@ public abstract class Repository<T, I> {
         }
     }
     public T update(T obj){
-        try (Session session = sessionFactory.openSession()){
+        try (Session session = sessionFactory.getCurrentSession()){
             Transaction transaction = session.beginTransaction();
             session.merge(obj);
             transaction.commit();
@@ -70,7 +73,7 @@ public abstract class Repository<T, I> {
         }
     }
     public void deleteById(I id){
-        try(Session session = sessionFactory.openSession()){
+        try(Session session = sessionFactory.getCurrentSession()){
             Transaction transaction = session.beginTransaction();
             T obj = getById(id);
             session.remove(obj);
