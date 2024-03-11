@@ -50,6 +50,7 @@ public class User {
     }
     public String toJson(){
         JsonObject jo = new JsonObject();
+        jo.addProperty("id", this.id);
         jo.addProperty("firstName", this.firstName);
         jo.addProperty("lastName", this.lastName);
         jo.addProperty("email", this.email);

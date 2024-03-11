@@ -1,9 +1,11 @@
+import {ref} from 'vue'
 export default {
     data(){
       return{
-          testName: "",
-          testDescription: "",
-          modules:[]
+          loaded: false,
+          testName: ref(""),
+          testDescription: ref(""),
+          modules: ref([])
       }
     },
     watch:{
@@ -16,6 +18,81 @@ export default {
             },
             deep: true
         }
+    },
+    async mounted(){
+        let data = {
+            loaded: false,
+            testName:"",
+            testDescription:"",
+            modules:[]
+        };
+        let isCurrentTestExist = false;
+        await $.ajax({
+            url: 'do',
+            method: 'get',
+            data: {
+                command: "openTestUpdateForm-Meta"
+            },
+            success: function (response){
+                console.log(response);
+                if(response!==false){
+                    console.log("Loading test data to data object")
+                    if(!response.error){
+                        isCurrentTestExist = true;
+                        data.testName = response.name;
+                        data.testDescription = response.description;
+                    } else {
+                        $("#error-header").text(response.errorCode)
+                        $("#error-body").text(response.stackTrace);
+                        $("#error-block").show();
+                    }
+                }
+            }
+        });
+        console.log(isCurrentTestExist);
+        if(isCurrentTestExist){
+            await $.ajax({
+                url:'do',
+                method: 'get',
+                data: {
+                    command: "getTestModules"
+                },
+                success: function (response){
+                    $.each(response, function (index, module){
+                        let mod = {
+                            name: '',
+                            questions: []
+                        }
+                        mod.name = module.name;
+                        $.each(module.questions, function (qIndex, question){
+                            let quest = {
+                                description: '',
+                                type: '',
+                                vars: []
+                            }
+                            quest.description = question.description;
+                            quest.type = question.questionType;
+                            $.each(question.answerVariants, function (aIndex, answerVar){
+                                let ansVar = {
+                                    description: '',
+                                    isRight: false
+                                }
+                                ansVar.description = answerVar.description;
+                                ansVar.isRight = answerVar.isRight;
+                                quest.vars.push(ansVar);
+                            })
+                            mod.questions.push(quest);
+                        })
+                        data.modules.push(mod);
+                    })
+                }
+            })
+            console.log(data.testName+"\n"+data.testDescription);
+            this.testName = data.testName;
+            this.testDescription = data.testDescription;
+            this.modules = data.modules;
+        }
+        this.loaded = true;
     },
     methods:{
         addTestModule(){
@@ -56,7 +133,7 @@ export default {
         saveOrUpdateTest(){
             let header = $('#user-header');
             header.html(
-                '<div class="spinner-grow" role="status">\n' +
+                '<div class="spinner-border" role="status">\n' +
                 '  <span class="visually-hidden">Loading...</span>\n' +
                 '</div>');
             let data = {
@@ -77,7 +154,7 @@ export default {
         }
     },
     template:
-        '<div>' +
+        '<div v-if="loaded">' +
         '   <div class="dashboard-content my-1">' +
         '       <label class="form-label" for="testNameInput">Назва тесту</label>' +
         '       <input class="form-control" type="text" v-model="testName" name="testName" id="testNameInput" placeholder="Назва тесту">' +
@@ -129,6 +206,12 @@ export default {
         '           <button class="btn btn-light" @click="addTestModule()">Додати модуль</button>' +
         '           <button class="btn btn-light" @click="saveOrUpdateTest()">Зберегти тест</button>' +
         '       </div>' +
+        '   </div>' +
+        '</div>' +
+        '<div v-else>' +
+        '   <div class="d-flex align-items-center">' +
+        '       <strong role="status">Зачекайте...</strong>' +
+        '       <div class="spinner-border ms-auto" aria-hidden="true"></div>' +
         '   </div>' +
         '</div>'
 }

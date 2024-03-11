@@ -29,6 +29,8 @@ public class CommandContainer {
         commands.put("saveOrUpdateTest", new SaveOrUpdateCommand());
         commands.put("loadTest", new LoadDashboardTestCommand());
         commands.put("getCurrentTestMeta", new GetCurrentTestMetaCommand());
+        commands.put("openTestUpdateForm-Meta", new OpenTestUpdateFormGetMetaCommand());
+        commands.put("getTestModules", new GetCurrentTestModulesCommand());
 
         logger.info("Command container successfully initialized");
         logger.info("Count commands -> "+commands.size());
@@ -43,7 +45,7 @@ public class CommandContainer {
     public static Command get(String command){
         if(!commands.containsKey(command)||command==null){
             logger.info("command \""+command+"\" is not found");
-            return new InvalidCommand();
+            return new ErrorCommand();
         }
         logger.info("execute command \""+command+"\"");
         return commands.get(command);

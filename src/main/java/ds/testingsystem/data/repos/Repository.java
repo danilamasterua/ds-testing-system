@@ -1,4 +1,4 @@
-package ds.testingsystem.data.repos.template;
+package ds.testingsystem.data.repos;
 
 import ds.testingsystem.data.HibernateSessionFactory;
 import jakarta.persistence.TypedQuery;
@@ -28,12 +28,15 @@ public abstract class Repository<T, I> {
 
     public List<T> getAll(){
         try (Session session = sessionFactory.getCurrentSession()){
+            Transaction transaction = session.beginTransaction();
             CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
             CriteriaQuery<T> cq = criteriaBuilder.createQuery(clazz);
             Root<T> rootEntry = cq.from(clazz);
             CriteriaQuery<T> cqAll = cq.select(rootEntry);
             TypedQuery<T> cqAllQuery = session.createQuery(cqAll);
-            return cqAllQuery.getResultList();
+            List<T> list = cqAllQuery.getResultList();
+            transaction.commit();
+            return list;
         }catch (Exception e){
             logger.error(e.getMessage());
             throw new RuntimeException(e.getMessage());

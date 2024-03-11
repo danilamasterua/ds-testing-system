@@ -33,8 +33,8 @@ export default {
             '       <h4 id="usercard-fullName"></h4>' +
             '       <div style="display: flex; justify-content: space-between; margin-left: auto; align-items: center">' +
             '           <div class="btn-group">' +
-            '               <button class="btn btn-primary" @click="openChangePasswordForm()">Змінити пароль</button>' +
-            '               <a href="exit" class="btn btn-danger">Вийти</a>' +
+            '               <button class="btn btn-light" @click="openChangePasswordForm()">Змінити пароль</button>' +
+            '               <a href="do?command=exit" class="btn btn-danger">Вийти</a>' +
             '           </div>' +
             '       </div>' +
         '       </div>' +

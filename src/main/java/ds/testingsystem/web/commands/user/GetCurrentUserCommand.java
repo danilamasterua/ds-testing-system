@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import ds.testingsystem.data.model.User;
 import ds.testingsystem.web.commands.Command;
-import ds.testingsystem.web.commands.InvalidCommand;
+import ds.testingsystem.web.commands.ErrorCommand;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -31,6 +31,6 @@ public class GetCurrentUserCommand extends Command {
     public String execute(HttpServletRequest req, HttpServletResponse rep, JsonObject obj) {
         HttpSession oldSession = req.getSession();
         oldSession.invalidate();
-        return new InvalidCommand("400", "This command is not support POST method").execute(req, rep);
+        return new ErrorCommand("400", "This command is not support POST method").execute(req, rep);
     }
 }

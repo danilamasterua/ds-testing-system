@@ -2,7 +2,7 @@ package ds.testingsystem.web.commands.test;
 
 import com.google.gson.JsonObject;
 import ds.testingsystem.web.commands.Command;
-import ds.testingsystem.web.commands.InvalidCommand;
+import ds.testingsystem.web.commands.ErrorCommand;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -25,6 +25,6 @@ public class LoadCreationTestPageCommand extends Command {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse rep, JsonObject obj) throws IOException, ServletException {
         logger.error("This command does not support POST method");
-        return new InvalidCommand("500", "This command does not support POST method").execute(req, rep);
+        return new ErrorCommand("500", "This command does not support POST method").execute(req, rep);
     }
 }

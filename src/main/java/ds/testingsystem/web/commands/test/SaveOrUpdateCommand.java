@@ -6,7 +6,7 @@ import ds.testingsystem.data.model.*;
 import ds.testingsystem.data.model.bean.enums.QuestionType;
 import ds.testingsystem.data.repos.TestRepository;
 import ds.testingsystem.web.commands.Command;
-import ds.testingsystem.web.commands.InvalidCommand;
+import ds.testingsystem.web.commands.ErrorCommand;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -23,7 +23,7 @@ public class SaveOrUpdateCommand extends Command {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         System.out.println("400 --- This command does not support GET method");
-        return new InvalidCommand("400", "This command does not support GET method").execute(req, resp);
+        return new ErrorCommand("400", "This command does not support GET method").execute(req, resp);
     }
 
     @Override

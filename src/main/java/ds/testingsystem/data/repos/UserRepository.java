@@ -1,7 +1,6 @@
 package ds.testingsystem.data.repos;
 
 import ds.testingsystem.data.model.User;
-import ds.testingsystem.data.repos.template.Repository;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;

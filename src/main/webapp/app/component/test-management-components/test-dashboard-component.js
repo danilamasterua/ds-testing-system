@@ -1,19 +1,36 @@
+import {createApp} from 'vue';
+import creationTestComponent from "./creation-test-component.js";
 export default {
     data() {
         return{
             name: '',
             description: '',
             testId: 0,
-            loaded: false
+            testOwnerId: 0,
+            userId: 0,
+            userRole: '',
+            isUpdatable: false,
+            loaded: false,
+            app: undefined
         }
     },
-    mounted(){
-        this.getTestInfo().then(r => {
+    async mounted(){
+        await this.getTestInfo().then(r => {
             this.name = r.name;
             this.description = r.description;
             this.testId = r.testId;
+            this.testOwnerId = r.testOwnerId;
             this.loaded = r.loaded;
         });
+        await this.getCurrentUserInfo().then(r=>{
+            this.userId = r.userId;
+            this.userRole = r.role;
+        })
+        if(this.userId===this.testOwnerId){
+            this.isUpdatable=true
+        }
+        console.log(this.userId===this.testOwnerId);
+        this.loaded = true;
     },
     methods:{
         async getTestInfo(){
@@ -21,7 +38,7 @@ export default {
                 name: '',
                 description: '',
                 testId: 0,
-                loaded: false
+                testOwnerId: 0,
             }
             await $.ajax({
                 url: 'do',
@@ -35,7 +52,7 @@ export default {
                         data.name = response.name;
                         data.description = response.description;
                         data.testId = Number.parseInt(response.id);
-                        data.loaded = true;
+                        data.testOwnerId = Number.parseInt(response.owner_id);
                     } else {
                         $("#error-header").text(response.errorCode)
                         $("#error-body").text(response.stackTrace);
@@ -44,12 +61,52 @@ export default {
                 }
             })
             return data;
+        },
+        async getCurrentUserInfo(){
+            let data = {
+                role:'',
+                userId:0
+            }
+            await $.ajax({
+                url: 'do',
+                method: 'get',
+                data:{
+                    command: 'getCurrentUser'
+                },
+                success: function (response){
+                    console.log(response);
+                    if(!response.error){
+                        data.role = response.userAccessLevel;
+                        data.userId = Number.parseInt(response.id);
+                    } else {
+                        $("#error-header").text(response.errorCode)
+                        $("#error-body").text(response.stackTrace);
+                        $("#error-block").show();
+                    }
+                }
+            })
+            return data;
+        },
+        openTestUpdateForm(){
+            this.app=createApp(creationTestComponent);
+            this.app.mount("#test-management-block")
         }
     },
     template:
         '<div>' +
         '   <div v-if="loaded" class="dashboard-content my-1">' +
-        '       <h1 id="testName">{{name}}</h1>' +
+        '       <div style="display: inline-flex; width: 100%;">' +
+        '           <h1 id="testName">{{name}}</h1>' +
+        '           <div style="display: flex; justify-content: space-between; margin-left: auto; align-items: center">' +
+        '                   <div class="btn-group">' +
+        '                       <button class="btn btn-light">Розпочати тест</button>' +
+        '                       <template v-if="userId==testOwnerId">' +
+        '                           <button class="btn btn-light" @click="openTestUpdateForm()">Редагувати тест</button>' +
+        '                           <button class="btn btn-danger">Видалити тест</button>' +
+        '                       </template>' +
+        '                   </div>' +
+        '               </div>' +
+        '       </div>' +
         '       <p id="testDescription">{{description}}</p>' +
         '   </div>' +
         '   <div v-else>' +

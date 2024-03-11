@@ -12,11 +12,11 @@ import lombok.AllArgsConstructor;
  * <b><i>Command</i></b> for any type of errors
  */
 @AllArgsConstructor
-public class InvalidCommand extends Command {
+public class ErrorCommand extends Command {
     private String errorCode;
     private String stackTrace;
 
-    public InvalidCommand(){
+    public ErrorCommand(){
         this.errorCode="404";
         this.stackTrace="Command not found";
     }
@@ -32,6 +32,6 @@ public class InvalidCommand extends Command {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse rep, JsonObject obj) {
-        return new InvalidCommand("500", "This method is not support POST method").execute(req, rep);
+        return new ErrorCommand("500", "This method is not support POST method").execute(req, rep);
     }
 }
