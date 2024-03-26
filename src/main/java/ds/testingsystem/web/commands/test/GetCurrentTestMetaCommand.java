@@ -18,8 +18,13 @@ public class GetCurrentTestMetaCommand extends Command {
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         HttpSession session = req.getSession();
         Long testId = (Long) session.getAttribute("currentTestId");
-        Test test = repository.getById(testId);
-        return test.toJson();
+        System.out.println("testId:"+testId);
+        if(testId!=null) {
+            Test test = repository.getById(testId);
+            return test.toJson();
+        } else {
+            return "false";
+        }
     }
 
     @Override

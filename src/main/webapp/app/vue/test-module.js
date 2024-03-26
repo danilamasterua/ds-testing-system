@@ -1,6 +1,6 @@
 import {createApp} from 'vue';
-import CreationTestComponent from "../component/test-management-components/creation-test-component.js";
-import TestDashboardComponent from "../component/test-management-components/test-dashboard-component.js";
+import {CreationTestComponent} from "./component/test-management-components/creation-test-component.js";
+import {TestDashboardComponent} from "./component/test-management-components/test-dashboard-component.js";
 
 $.ajax({
     url: 'do',

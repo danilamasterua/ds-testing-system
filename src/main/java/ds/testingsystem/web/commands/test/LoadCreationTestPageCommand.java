@@ -18,6 +18,8 @@ public class LoadCreationTestPageCommand extends Command {
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         HttpSession session = req.getSession();
         session.setAttribute("setTestPageStatus", true);
+        session.setAttribute("currentTestId", null);
+        session.setAttribute("currentCreatingTest", null);
         resp.sendRedirect(req.getContextPath()+"/test.jsp");
         return "/test.jsp";
     }

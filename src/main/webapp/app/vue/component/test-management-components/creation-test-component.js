@@ -1,4 +1,5 @@
 import {ref} from 'vue'
+import ajaxqueries from "../../../ajaxqueries.js";
 export default {
     data(){
       return{
@@ -14,85 +15,34 @@ export default {
                 let str =
                     '<p>У вас є незбережені зміни</p>'
                 $('#user-header').html(str);
-
             },
             deep: true
         }
     },
     async mounted(){
-        let data = {
-            loaded: false,
-            testName:"",
-            testDescription:"",
-            modules:[]
-        };
-        let isCurrentTestExist = false;
-        await $.ajax({
-            url: 'do',
-            method: 'get',
-            data: {
-                command: "openTestUpdateForm-Meta"
-            },
-            success: function (response){
-                console.log(response);
-                if(response!==false){
-                    console.log("Loading test data to data object")
-                    if(!response.error){
-                        isCurrentTestExist = true;
-                        data.testName = response.name;
-                        data.testDescription = response.description;
-                    } else {
-                        $("#error-header").text(response.errorCode)
-                        $("#error-body").text(response.stackTrace);
-                        $("#error-block").show();
-                    }
-                }
-            }
-        });
-        console.log(isCurrentTestExist);
-        if(isCurrentTestExist){
-            await $.ajax({
-                url:'do',
-                method: 'get',
-                data: {
-                    command: "getTestModules"
-                },
-                success: function (response){
-                    $.each(response, function (index, module){
-                        let mod = {
-                            name: '',
-                            questions: []
-                        }
-                        mod.name = module.name;
-                        $.each(module.questions, function (qIndex, question){
-                            let quest = {
-                                description: '',
-                                type: '',
-                                vars: []
-                            }
-                            quest.description = question.description;
-                            quest.type = question.questionType;
-                            $.each(question.answerVariants, function (aIndex, answerVar){
-                                let ansVar = {
-                                    description: '',
-                                    isRight: false
-                                }
-                                ansVar.description = answerVar.description;
-                                ansVar.isRight = answerVar.isRight;
-                                quest.vars.push(ansVar);
-                            })
-                            mod.questions.push(quest);
-                        })
-                        data.modules.push(mod);
-                    })
-                }
+        let status;
+        await ajaxqueries.getTestPageStatus().then(r=>status=r);
+        if(!status) {
+            let data = {
+                testName: "",
+                testDescription: "",
+                modules: []
+            };
+            let isCurrentTestExist = false;
+            await ajaxqueries.openTestUpdateFormMeta().then(resp => {
+                isCurrentTestExist = resp.isCurrentTestExist;
+                data.testName = resp.testName;
+                data.testDescription = resp.testDescription;
             })
-            console.log(data.testName+"\n"+data.testDescription);
-            this.testName = data.testName;
-            this.testDescription = data.testDescription;
-            this.modules = data.modules;
+            if (isCurrentTestExist) {
+                await ajaxqueries.getTestModules().then(resp => {
+                    this.modules = resp
+                });
+                this.testName = data.testName;
+                this.testDescription = data.testDescription;
+            }
+            this.loaded = true;
         }
-        this.loaded = true;
     },
     methods:{
         addTestModule(){
@@ -142,14 +92,7 @@ export default {
                 description: this.testDescription,
                 modules: this.modules
             }
-            $.ajax({
-                url: 'do',
-                method: 'POST',
-                data: JSON.stringify(data),
-                success: function (response){
-                    console.log(response);
-                }
-            })
+            ajaxqueries.saveOrUpdateTest(data);
             header.html('<p>Збережено</p>');
         }
     },

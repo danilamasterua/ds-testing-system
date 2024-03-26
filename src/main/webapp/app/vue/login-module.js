@@ -1,6 +1,6 @@
 import {createApp} from 'vue';
-import LoginComponent from "../component/login-component.js";
-import DashboardComponent from "../component/dashboard-component.js";
+import LoginComponent from "./component/login-component.js";
+import DashboardComponent from "./component/dashboard-component.js";
 
 $.ajax({
     method: 'GET',

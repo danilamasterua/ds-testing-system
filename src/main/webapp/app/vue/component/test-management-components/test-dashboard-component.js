@@ -1,5 +1,6 @@
 import {createApp} from 'vue';
 import creationTestComponent from "./creation-test-component.js";
+import passingTestComponent from "./passing-test-component.js";
 export default {
     data() {
         return{
@@ -89,7 +90,14 @@ export default {
         },
         openTestUpdateForm(){
             this.app=createApp(creationTestComponent);
-            this.app.mount("#test-management-block")
+            this.appMount();
+        },
+        openTestPassingApp(){
+            this.app=createApp(passingTestComponent);
+            this.appMount()
+        },
+        appMount(){
+            this.app.mount("#test-management-block");
         }
     },
     template:
@@ -99,7 +107,7 @@ export default {
         '           <h1 id="testName">{{name}}</h1>' +
         '           <div style="display: flex; justify-content: space-between; margin-left: auto; align-items: center">' +
         '                   <div class="btn-group">' +
-        '                       <button class="btn btn-light">Розпочати тест</button>' +
+        '                       <button class="btn btn-light" @click="openTestPassingApp()">Розпочати тест</button>' +
         '                       <template v-if="userId==testOwnerId">' +
         '                           <button class="btn btn-light" @click="openTestUpdateForm()">Редагувати тест</button>' +
         '                           <button class="btn btn-danger">Видалити тест</button>' +
